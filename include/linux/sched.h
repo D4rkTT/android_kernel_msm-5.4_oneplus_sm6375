@@ -810,10 +810,22 @@ struct wake_q_node {
 #if IS_ENABLED(CONFIG_OPLUS_LOCKING_STRATEGY)
 struct locking_info {
 	u64 waittime_stamp;
-	u64 osq_holdtime_stamp;
+	/*
+	 * mutex or rwsem optimistic spin start time. Because a task
+  	 * can't spin both on mutex and rwsem at one time, use one common
+  	 * threshold time is OK.
+  	 */
+	u64 opt_spin_start_time;
 	struct task_struct *holder;
-	u32 lock_type;
 	bool ux_contrib;
+ 	/*
+  	 * Whether task is ux when it's going to be added to mutex or
+  	 * rwsem waiter list. It helps us check whether there is ux
+  	 * task on mutex or rwsem waiter list. Also, a task can't be
+  	 * added to both mutex and rwsem at one time, so use one common
+  	 * field is OK.
+  	 */
+	bool is_block_ux;
 };
 #endif
 

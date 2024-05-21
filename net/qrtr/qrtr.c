@@ -976,7 +976,6 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
 	 * queued to the worker for forwarding handling.
 	 */
 	if (cb->type != QRTR_TYPE_DATA || cb->dst_node != qrtr_local_nid) {
-		pr_err("nid id :%d wakeup AP_1\n", node->nid);
 		skb_queue_tail(&node->rx_queue, skb);
 		kthread_queue_work(&node->kworker, &node->read_data);
 		pm_wakeup_ws_event(node->ws, qrtr_wakeup_ms, true);
@@ -1006,7 +1005,6 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
 		 */
 		if ((node->nid != 9 && node->nid != 5) ||
 				(node->nid == 5 && wake)) {
-				pr_err("nid id :%d wakeup AP_1\n", node->nid);
 				pm_wakeup_ws_event(node->ws, qrtr_wakeup_ms, true);
 			}
 
