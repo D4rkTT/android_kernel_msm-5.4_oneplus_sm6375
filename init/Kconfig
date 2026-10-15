@@ -789,7 +789,7 @@ config UCLAMP_BUCKETS_COUNT
 
 	  If in doubt, use the default value.
 
-+# OPLUS scheduler Kconfig files are absent from this source tree.
+# OPLUS scheduler Kconfig files are absent from this source tree.
 
 endmenu
 
